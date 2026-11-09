@@ -1,0 +1,23 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>Работающие контейнеры проекта</title><style>
+*{box-sizing:border-box}body{margin:0;padding:38px 44px;background:#eef2f5;color:#162638;font:19px Arial,sans-serif}
+header{border-top:7px solid #19736b;padding-top:18px;margin-bottom:24px}h1{font-size:32px;margin:8px 0 12px}h2{font-size:21px;margin:0 0 12px;color:#12675f}
+.meta{font-size:16px;color:#506276;line-height:1.6}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:white;border:1px solid #ced8e1;border-radius:10px;padding:20px;margin-bottom:18px;overflow:hidden}
+pre{white-space:pre-wrap;word-break:break-word;font:17px/1.4 Menlo,monospace;margin:8px 0 0}.url{font:17px Menlo,monospace;color:#35465a;word-break:break-all}.status{font-weight:bold;color:#12675f}
+.small{font-size:15px;color:#526377}footer{margin-top:16px;border-top:1px solid #c5d0da;padding-top:12px;color:#526377;font-size:16px}.trace pre{font-size:16px;line-height:1.5}.compact pre{font-size:16px;line-height:1.28}
+</style>
+<header><div class="meta">IaaS Test Platform · Практическая работа № 8 · Румянцев А. А., ИКБО-11-23</div>
+<h1>Работающие контейнеры проекта</h1><div class="meta">Протокол проверки работающего REST API и Docker-стенда<br>Дата сбора (UTC): 2026-11-09T14:01:54.050480+00:00</div></header>
+<section class="card "><h2>Команда: docker compose ps</h2><pre>SERVICE                 STATE      HEALTH     PORTS
+api-gateway             running    -          127.0.0.1:8088-&gt;8080/tcp
+config-server           running    healthy    127.0.0.1:8888-&gt;8888/tcp
+discovery-server        running    healthy    127.0.0.1:8761-&gt;8761/tcp
+environment-db          running    healthy    5432/tcp
+environment-service     running    -          internal
+keycloak                running    -          127.0.0.1:8180-&gt;8080/tcp
+project-db              running    healthy    5432/tcp
+project-service         running    -          internal
+project-service-2       running    -          internal
+rabbitmq                running    healthy    127.0.0.1:15672-&gt;15672/tcp
+test-run-db             running    healthy    5432/tcp
+test-run-service        running    -          internal
+</pre></section><footer>Источник: сохранённые HTTP-ответы / docker compose / RabbitMQ Management API в report/evidence.<br>OAuth2-токены и секреты исключены. Учебный сценарий API не исполняет тесты дистрибутива ПО.</footer></html>

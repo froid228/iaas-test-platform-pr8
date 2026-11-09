@@ -1,0 +1,3 @@
+Ожидание Keycloak и API (до 3 минут на компонент)...
+project-service:a61283588d05:8080: 6 ответов
+project-service:964d313cb04a:8080: 6 ответов

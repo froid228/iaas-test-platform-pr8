@@ -1,0 +1,5 @@
+POST Keycloak /protocol/openid-connect/token -> 200 (Bearer; token omitted)
+GET /api/projects without token -> 401
+GET /actuator/health (Config Server) -> 200; status=UP
+GET /project-service/default/main -> 200; Git commit=964a27e67e92feddedcb1a7301e9b5c10cf61985
+GET /api/test-runs/ec3af512-3d29-4c60-8c77-b6fc909a82ab -> 200; status=PASSED

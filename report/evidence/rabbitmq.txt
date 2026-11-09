@@ -1,0 +1,17 @@
+Exchange: platform.events
+Routing key: run.created
+Queue: environment.run-created
+Event ID: ee71962a-f8ba-4b82-a5a7-bb936311a31b
+
+2026-11-09T14:01:54.093Z  INFO 1 --- [environment-service] [ntContainer#0-1] r.m.p.environment.RunCreatedListener     : requestId=pr8-create-3d731793-b07a-4fb5-9d93-84c36a2ad859 event=run.created eventId=ee71962a-f8ba-4b82-a5a7-bb936311a31b runId=ec3af512-3d29-4c60-8c77-b6fc909a82ab environmentId=20fb546c-b568-4ee1-8024-8834b92120c8 consumed queue=environment.run-created
+2026-11-09T14:01:54.091Z  INFO 1 --- [test-run-service] [nio-8080-exec-8] r.m.platform.testrun.RunEventPublisher   : requestId=pr8-create-3d731793-b07a-4fb5-9d93-84c36a2ad859 event=run.created eventId=ee71962a-f8ba-4b82-a5a7-bb936311a31b runId=ec3af512-3d29-4c60-8c77-b6fc909a82ab exchange=platform.events published
+
+{
+  "name": "environment.run-created",
+  "vhost": "/",
+  "durable": true,
+  "consumers": 1,
+  "messages_ready": 0,
+  "messages_unacknowledged": 0,
+  "message_stats": null
+}

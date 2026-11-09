@@ -1,0 +1,201 @@
+{
+  "capturedAt": "2026-11-09T14:01:54.050480+00:00",
+  "frames": [
+    {
+      "title": "1. Авторизация и доступ к API",
+      "records": [
+        {
+          "operation": "POST Keycloak /protocol/openid-connect/token",
+          "status": 200,
+          "token_type": "Bearer",
+          "expires_in": 300,
+          "access_token": "[не сохраняется]"
+        },
+        {
+          "method": "GET",
+          "url": "http://localhost:8088/api/projects",
+          "requestId": "pr8-350b8c2c-7ec6-4536-bc26-438731070b10",
+          "status": 401,
+          "responseRequestId": "pr8-350b8c2c-7ec6-4536-bc26-438731070b10",
+          "body": null
+        },
+        {
+          "method": "GET",
+          "url": "http://localhost:8088/api/projects",
+          "requestId": "pr8-0a0c89fd-d54c-4f5d-a644-12a4ec9fb682",
+          "status": 200,
+          "responseRequestId": "pr8-0a0c89fd-d54c-4f5d-a644-12a4ec9fb682",
+          "body": {
+            "existingProjects": 5
+          }
+        }
+      ]
+    },
+    {
+      "title": "2. Регистрация версии ПО",
+      "records": [
+        {
+          "method": "POST",
+          "url": "http://localhost:8088/api/projects",
+          "requestId": "pr8-b79fe426-df16-4950-b845-0b1f2876374a",
+          "status": 201,
+          "responseRequestId": "pr8-b79fe426-df16-4950-b845-0b1f2876374a",
+          "body": {
+            "id": "c69e4bfd-18d1-472b-a9c8-9da7b4c42c3b",
+            "name": "Клиент-серверное ПО — проверка ПР8",
+            "softwareVersion": "0.2-demo",
+            "artifactReference": "demo://builds/client-server.zip",
+            "createdAt": "2026-11-09T14:01:54.065339921Z"
+          },
+          "requestBody": {
+            "name": "Клиент-серверное ПО — проверка ПР8",
+            "softwareVersion": "0.2-demo",
+            "artifactReference": "demo://builds/client-server.zip"
+          }
+        }
+      ]
+    },
+    {
+      "title": "3. Регистрация шаблона стенда",
+      "records": [
+        {
+          "method": "POST",
+          "url": "http://localhost:8088/api/environments",
+          "requestId": "pr8-b7093d70-0e3d-45f8-9b25-2ce006400301",
+          "status": 201,
+          "responseRequestId": "pr8-b7093d70-0e3d-45f8-9b25-2ce006400301",
+          "body": {
+            "id": "20fb546c-b568-4ee1-8024-8834b92120c8",
+            "name": "Linux-стенд ПР8",
+            "operatingSystem": "Ubuntu 24.04",
+            "imageReference": "demo://images/ubuntu-24.04",
+            "cpu": 2,
+            "memoryMb": 2048
+          },
+          "requestBody": {
+            "name": "Linux-стенд ПР8",
+            "operatingSystem": "Ubuntu 24.04",
+            "imageReference": "demo://images/ubuntu-24.04",
+            "cpu": 2,
+            "memoryMb": 2048
+          }
+        }
+      ]
+    },
+    {
+      "title": "4. Создание запуска и проверка ссылок",
+      "records": [
+        {
+          "method": "POST",
+          "url": "http://localhost:8088/api/test-runs",
+          "requestId": "pr8-create-3d731793-b07a-4fb5-9d93-84c36a2ad859",
+          "status": 201,
+          "responseRequestId": "pr8-create-3d731793-b07a-4fb5-9d93-84c36a2ad859",
+          "body": {
+            "id": "ec3af512-3d29-4c60-8c77-b6fc909a82ab",
+            "revision": 0,
+            "projectId": "c69e4bfd-18d1-472b-a9c8-9da7b4c42c3b",
+            "environmentId": "20fb546c-b568-4ee1-8024-8834b92120c8",
+            "testSuite": "manual-api-demonstration",
+            "requestedBy": "b71cba05-2f37-408f-bd7e-0b018ec2b891",
+            "createdAt": "2026-11-09T14:01:54.090196338Z",
+            "status": "QUEUED",
+            "startedAt": null,
+            "finishedAt": null,
+            "summary": null,
+            "evidenceUri": null
+          },
+          "requestBody": {
+            "projectId": "c69e4bfd-18d1-472b-a9c8-9da7b4c42c3b",
+            "environmentId": "20fb546c-b568-4ee1-8024-8834b92120c8",
+            "testSuite": "manual-api-demonstration"
+          }
+        }
+      ]
+    },
+    {
+      "title": "5. Выполнение и сохранение результата",
+      "records": [
+        {
+          "method": "POST",
+          "url": "http://localhost:8088/api/test-runs/ec3af512-3d29-4c60-8c77-b6fc909a82ab/start",
+          "requestId": "pr8-a2dd1118-9e21-4dd4-9bac-2907ed4ce771",
+          "status": 200,
+          "responseRequestId": "pr8-a2dd1118-9e21-4dd4-9bac-2907ed4ce771",
+          "body": {
+            "id": "ec3af512-3d29-4c60-8c77-b6fc909a82ab",
+            "status": "RUNNING",
+            "revision": 1,
+            "startedAt": "2026-11-09T14:01:54.099959088Z",
+            "finishedAt": null
+          }
+        },
+        {
+          "method": "POST",
+          "url": "http://localhost:8088/api/test-runs/ec3af512-3d29-4c60-8c77-b6fc909a82ab/result",
+          "requestId": "pr8-e672a4f3-1c92-4d26-9c89-deab1c82c9a7",
+          "status": 200,
+          "responseRequestId": "pr8-e672a4f3-1c92-4d26-9c89-deab1c82c9a7",
+          "body": {
+            "id": "ec3af512-3d29-4c60-8c77-b6fc909a82ab",
+            "status": "PASSED",
+            "revision": 2,
+            "startedAt": "2026-11-09T14:01:54.099959Z",
+            "finishedAt": "2026-11-09T14:01:54.108927963Z"
+          },
+          "requestBody": {
+            "status": "PASSED",
+            "summary": "Учебная запись результата API; дистрибутив ПО не тестировался.",
+            "evidenceUri": "demo://manual-api-example"
+          }
+        },
+        {
+          "method": "GET",
+          "url": "http://localhost:8088/api/test-runs/ec3af512-3d29-4c60-8c77-b6fc909a82ab",
+          "requestId": "pr8-2cb1d93a-f1ed-428a-a553-c7b34f9c0fb7",
+          "status": 200,
+          "responseRequestId": "pr8-2cb1d93a-f1ed-428a-a553-c7b34f9c0fb7",
+          "body": {
+            "id": "ec3af512-3d29-4c60-8c77-b6fc909a82ab",
+            "status": "PASSED",
+            "revision": 2,
+            "startedAt": "2026-11-09T14:01:54.099959Z",
+            "finishedAt": "2026-11-09T14:01:54.108928Z"
+          }
+        },
+        {
+          "method": "POST",
+          "url": "http://localhost:8088/api/test-runs/ec3af512-3d29-4c60-8c77-b6fc909a82ab/start",
+          "requestId": "pr8-f32436f0-11bd-4fcc-82b9-2f6f9747f3d5",
+          "status": 409,
+          "responseRequestId": "pr8-f32436f0-11bd-4fcc-82b9-2f6f9747f3d5",
+          "body": {
+            "type": "about:blank",
+            "title": "Conflict",
+            "status": 409,
+            "detail": "Ожидался статус QUEUED, текущий: PASSED",
+            "instance": "/api/test-runs/ec3af512-3d29-4c60-8c77-b6fc909a82ab/start"
+          }
+        },
+        {
+          "method": "POST",
+          "url": "http://localhost:8088/api/test-runs",
+          "requestId": "pr8-36f34137-4b34-4f02-8af1-be50a5ad8a2f",
+          "status": 422,
+          "responseRequestId": "pr8-36f34137-4b34-4f02-8af1-be50a5ad8a2f",
+          "body": {
+            "timestamp": "2026-11-09T14:01:54.138+00:00",
+            "status": 422,
+            "error": "Unprocessable Entity",
+            "path": "/api/test-runs"
+          },
+          "requestBody": {
+            "projectId": "00000000-0000-0000-0000-000000000000",
+            "environmentId": "20fb546c-b568-4ee1-8024-8834b92120c8",
+            "testSuite": "manual-api-demonstration"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>1. Авторизация и доступ к API</title><style>
+*{box-sizing:border-box}body{margin:0;padding:38px 44px;background:#eef2f5;color:#162638;font:19px Arial,sans-serif}
+header{border-top:7px solid #19736b;padding-top:18px;margin-bottom:24px}h1{font-size:32px;margin:8px 0 12px}h2{font-size:21px;margin:0 0 12px;color:#12675f}
+.meta{font-size:16px;color:#506276;line-height:1.6}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:white;border:1px solid #ced8e1;border-radius:10px;padding:20px;margin-bottom:18px;overflow:hidden}
+pre{white-space:pre-wrap;word-break:break-word;font:17px/1.4 Menlo,monospace;margin:8px 0 0}.url{font:17px Menlo,monospace;color:#35465a;word-break:break-all}.status{font-weight:bold;color:#12675f}
+.small{font-size:15px;color:#526377}footer{margin-top:16px;border-top:1px solid #c5d0da;padding-top:12px;color:#526377;font-size:16px}.trace pre{font-size:16px;line-height:1.5}.compact pre{font-size:16px;line-height:1.28}
+</style>
+<header><div class="meta">IaaS Test Platform · Практическая работа № 8 · Румянцев А. А., ИКБО-11-23</div>
+<h1>1. Авторизация и доступ к API</h1><div class="meta">Протокол проверки работающего REST API и Docker-стенда<br>Дата сбора (UTC): 2026-11-09T14:01:54.050480+00:00</div></header>
+<div class="grid"><section class="card"><h2>Выдача токена: HTTP 200</h2><pre>{
+  &quot;operation&quot;: &quot;POST Keycloak /protocol/openid-connect/token&quot;,
+  &quot;status&quot;: 200,
+  &quot;token_type&quot;: &quot;Bearer&quot;,
+  &quot;expires_in&quot;: 300,
+  &quot;access_token&quot;: &quot;[не сохраняется]&quot;
+}</pre></section><section class="card compact"><h2>GET · HTTP 401</h2><div class="url">http://localhost:8088/api/projects</div><p class="small">X-Request-Id: pr8-350b8c2c-7ec6-4536-bc26-438731070b10</p><div class="small">Ответ сервера</div><pre>null</pre></section><section class="card compact"><h2>GET · HTTP 200</h2><div class="url">http://localhost:8088/api/projects</div><p class="small">X-Request-Id: pr8-0a0c89fd-d54c-4f5d-a644-12a4ec9fb682</p><div class="small">Ответ сервера</div><pre>{
+  &quot;existingProjects&quot;: 5
+}</pre></section></div><footer>Источник: сохранённые HTTP-ответы / docker compose / RabbitMQ Management API в report/evidence.<br>OAuth2-токены и секреты исключены. Учебный сценарий API не исполняет тесты дистрибутива ПО.</footer></html>

@@ -1,0 +1,51 @@
+[
+  {
+    "name": "ru.mirea.platform.environment.EnvironmentServiceTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "ru.mirea.platform.project.ProjectApiTest",
+    "tests": "5",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "ru.mirea.platform.project.ProjectServiceTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "ru.mirea.platform.testrun.RequestIdFeignConfigTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "ru.mirea.platform.testrun.RunEventPublisherTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "ru.mirea.platform.testrun.RunServiceTest",
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "ru.mirea.platform.testrun.TestRunTest",
+    "tests": "5",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  }
+]

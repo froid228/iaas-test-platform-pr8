@@ -1,0 +1,17 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${CONFIG_GIT_URI:file:./.runtime/config-repo}
+          default-label: main
+          clone-on-start: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

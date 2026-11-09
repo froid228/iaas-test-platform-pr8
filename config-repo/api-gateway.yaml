@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          default-filters:
+            - DedupeResponseHeader=X-Request-Id, RETAIN_FIRST
+          httpclient:
+            connect-timeout: 3000
+            response-timeout: 10s
+          routes:
+            - id: projects
+              uri: lb://project-service
+              predicates:
+                - Path=/api/projects,/api/projects/**
+            - id: environments
+              uri: lb://environment-service
+              predicates:
+                - Path=/api/environments,/api/environments/**
+            - id: test-runs
+              uri: lb://test-run-service
+              predicates:
+                - Path=/api/test-runs,/api/test-runs/**

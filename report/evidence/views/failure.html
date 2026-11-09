@@ -1,0 +1,37 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>Недоступность сервиса и восстановление</title><style>
+*{box-sizing:border-box}body{margin:0;padding:38px 44px;background:#eef2f5;color:#162638;font:19px Arial,sans-serif}
+header{border-top:7px solid #19736b;padding-top:18px;margin-bottom:24px}h1{font-size:32px;margin:8px 0 12px}h2{font-size:21px;margin:0 0 12px;color:#12675f}
+.meta{font-size:16px;color:#506276;line-height:1.6}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:white;border:1px solid #ced8e1;border-radius:10px;padding:20px;margin-bottom:18px;overflow:hidden}
+pre{white-space:pre-wrap;word-break:break-word;font:17px/1.4 Menlo,monospace;margin:8px 0 0}.url{font:17px Menlo,monospace;color:#35465a;word-break:break-all}.status{font-weight:bold;color:#12675f}
+.small{font-size:15px;color:#526377}footer{margin-top:16px;border-top:1px solid #c5d0da;padding-top:12px;color:#526377;font-size:16px}.trace pre{font-size:16px;line-height:1.5}.compact pre{font-size:16px;line-height:1.28}
+</style>
+<header><div class="meta">IaaS Test Platform · Практическая работа № 8 · Румянцев А. А., ИКБО-11-23</div>
+<h1>Недоступность сервиса и восстановление</h1><div class="meta">Протокол проверки работающего REST API и Docker-стенда<br>Дата сбора (UTC): 2026-11-09T14:01:54.284576+00:00</div></header>
+<section class="card "><h2>docker compose stop environment-service → docker compose ps --all</h2><pre>SERVICE               STATE     STATUS
+api-gateway           running   Up 42 seconds
+config-server         running   Up 51 seconds (healthy)
+discovery-server      running   Up 50 seconds (healthy)
+environment-db        running   Up 50 seconds (healthy)
+environment-service   exited    Exited (137) Less than a second ago
+keycloak              running   Up 50 seconds
+project-db            running   Up 50 seconds (healthy)
+project-service       running   Up 42 seconds
+rabbitmq              running   Up 50 seconds (healthy)
+test-run-db           running   Up 50 seconds (healthy)
+test-run-service      running   Up 42 seconds</pre></section><div class="grid"><section class="card compact"><h2>POST · HTTP 503</h2><div class="url">http://localhost:8088/api/test-runs</div><p class="small">X-Request-Id: pr8-80ab37c1-a4c1-4a92-917f-65a858eeadfb</p><div class="small">Тело запроса</div><pre>{
+  &quot;projectId&quot;: &quot;c69e4bfd-18d1-472b-a9c8-9da7b4c42c3b&quot;,
+  &quot;environmentId&quot;: &quot;20fb546c-b568-4ee1-8024-8834b92120c8&quot;,
+  &quot;testSuite&quot;: &quot;manual-api-demonstration&quot;
+}</pre><div class="small">Ответ сервера</div><pre>{
+  &quot;timestamp&quot;: &quot;2026-11-09T14:02:03.607+00:00&quot;,
+  &quot;status&quot;: 503,
+  &quot;error&quot;: &quot;Service Unavailable&quot;,
+  &quot;path&quot;: &quot;/api/test-runs&quot;
+}</pre></section><section class="card "><h2>Сохранность данных и доступность</h2><pre>Запусков до отказа: 6
+Запусков после отказа: 6
+GET /api/projects/{id} → HTTP 200
+
+Восстановление:
+docker compose start environment-service
+POST /api/test-runs → HTTP 201
+status: QUEUED</pre></section></div><footer>Источник: сохранённые HTTP-ответы / docker compose / RabbitMQ Management API в report/evidence.<br>OAuth2-токены и секреты исключены. Учебный сценарий API не исполняет тесты дистрибутива ПО.</footer></html>

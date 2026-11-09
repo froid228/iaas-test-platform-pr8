@@ -1,0 +1,31 @@
+{
+  "project": {
+    "id": "c69e4bfd-18d1-472b-a9c8-9da7b4c42c3b",
+    "name": "Клиент-серверное ПО — проверка ПР8",
+    "softwareVersion": "0.2-demo",
+    "artifactReference": "demo://builds/client-server.zip",
+    "createdAt": "2026-11-09T14:01:54.065339921Z"
+  },
+  "environment": {
+    "id": "20fb546c-b568-4ee1-8024-8834b92120c8",
+    "name": "Linux-стенд ПР8",
+    "operatingSystem": "Ubuntu 24.04",
+    "imageReference": "demo://images/ubuntu-24.04",
+    "cpu": 2,
+    "memoryMb": 2048
+  },
+  "run": {
+    "id": "ec3af512-3d29-4c60-8c77-b6fc909a82ab",
+    "revision": 2,
+    "projectId": "c69e4bfd-18d1-472b-a9c8-9da7b4c42c3b",
+    "environmentId": "20fb546c-b568-4ee1-8024-8834b92120c8",
+    "testSuite": "manual-api-demonstration",
+    "requestedBy": "b71cba05-2f37-408f-bd7e-0b018ec2b891",
+    "createdAt": "2026-11-09T14:01:54.090196Z",
+    "status": "PASSED",
+    "startedAt": "2026-11-09T14:01:54.099959Z",
+    "finishedAt": "2026-11-09T14:01:54.108927963Z",
+    "summary": "Учебная запись результата API; дистрибутив ПО не тестировался.",
+    "evidenceUri": "demo://manual-api-example"
+  }
+}

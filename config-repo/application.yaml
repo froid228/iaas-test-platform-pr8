@@ -1,0 +1,30 @@
+server:
+  port: ${SERVER_PORT:8080}
+spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    username: ${RABBITMQ_USER:platform}
+    password: ${RABBITMQ_PASSWORD}
+    connection-timeout: 3s
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH_ISSUER:http://localhost:8180/realms/test-platform}
+          jwk-set-uri: ${OAUTH_JWK_URI:http://localhost:8180/realms/test-platform/protocol/openid-connect/certs}
+          audiences: platform-api
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${HOSTNAME:localhost}:${server.port}
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never

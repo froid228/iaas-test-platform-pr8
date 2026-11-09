@@ -1,0 +1,27 @@
+[
+  {
+    "application": "API-GATEWAY",
+    "instanceId": "api-gateway:cee6e0032fbc:8080",
+    "status": "UP"
+  },
+  {
+    "application": "ENVIRONMENT-SERVICE",
+    "instanceId": "environment-service:0d4fbf4b4d47:8080",
+    "status": "UP"
+  },
+  {
+    "application": "TEST-RUN-SERVICE",
+    "instanceId": "test-run-service:08955565e060:8080",
+    "status": "UP"
+  },
+  {
+    "application": "PROJECT-SERVICE",
+    "instanceId": "project-service:a61283588d05:8080",
+    "status": "UP"
+  },
+  {
+    "application": "PROJECT-SERVICE",
+    "instanceId": "project-service:964d313cb04a:8080",
+    "status": "UP"
+  }
+]

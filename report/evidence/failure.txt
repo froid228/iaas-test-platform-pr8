@@ -1,0 +1,66 @@
+{
+  "capturedAt": "2026-11-09T14:01:54.284576+00:00",
+  "stoppedService": "environment-service",
+  "stopOutput": "",
+  "containersDuringFailure": "SERVICE               STATE     STATUS\napi-gateway           running   Up 42 seconds\nconfig-server         running   Up 51 seconds (healthy)\ndiscovery-server      running   Up 50 seconds (healthy)\nenvironment-db        running   Up 50 seconds (healthy)\nenvironment-service   exited    Exited (137) Less than a second ago\nkeycloak              running   Up 50 seconds\nproject-db            running   Up 50 seconds (healthy)\nproject-service       running   Up 42 seconds\nrabbitmq              running   Up 50 seconds (healthy)\ntest-run-db           running   Up 50 seconds (healthy)\ntest-run-service      running   Up 42 seconds",
+  "failedRequest": {
+    "method": "POST",
+    "url": "http://localhost:8088/api/test-runs",
+    "requestId": "pr8-80ab37c1-a4c1-4a92-917f-65a858eeadfb",
+    "status": 503,
+    "responseRequestId": "pr8-80ab37c1-a4c1-4a92-917f-65a858eeadfb",
+    "body": {
+      "timestamp": "2026-11-09T14:02:03.607+00:00",
+      "status": 503,
+      "error": "Service Unavailable",
+      "path": "/api/test-runs"
+    },
+    "requestBody": {
+      "projectId": "c69e4bfd-18d1-472b-a9c8-9da7b4c42c3b",
+      "environmentId": "20fb546c-b568-4ee1-8024-8834b92120c8",
+      "testSuite": "manual-api-demonstration"
+    }
+  },
+  "runsBefore": 6,
+  "runsAfter": 6,
+  "independentService": {
+    "method": "GET",
+    "url": "http://localhost:8088/api/projects/c69e4bfd-18d1-472b-a9c8-9da7b4c42c3b",
+    "requestId": "pr8-40759a54-c6ba-4c69-a5f9-8f9abbe0cf37",
+    "status": 200,
+    "responseRequestId": "pr8-40759a54-c6ba-4c69-a5f9-8f9abbe0cf37",
+    "body": {
+      "id": "c69e4bfd-18d1-472b-a9c8-9da7b4c42c3b",
+      "name": "Клиент-серверное ПО — проверка ПР8",
+      "softwareVersion": "0.2-demo",
+      "artifactReference": "demo://builds/client-server.zip",
+      "createdAt": "2026-11-09T14:01:54.065340Z"
+    }
+  },
+  "afterRecovery": {
+    "method": "POST",
+    "url": "http://localhost:8088/api/test-runs",
+    "requestId": "pr8-fc669b56-a701-4e0a-902c-47918d6c7755",
+    "status": 201,
+    "responseRequestId": "pr8-fc669b56-a701-4e0a-902c-47918d6c7755",
+    "body": {
+      "id": "960845e4-32e9-4c4a-8b70-a66a533b0b39",
+      "revision": 0,
+      "projectId": "c69e4bfd-18d1-472b-a9c8-9da7b4c42c3b",
+      "environmentId": "20fb546c-b568-4ee1-8024-8834b92120c8",
+      "testSuite": "manual-api-demonstration",
+      "requestedBy": "b71cba05-2f37-408f-bd7e-0b018ec2b891",
+      "createdAt": "2026-11-09T14:02:07.494464844Z",
+      "status": "QUEUED",
+      "startedAt": null,
+      "finishedAt": null,
+      "summary": null,
+      "evidenceUri": null
+    },
+    "requestBody": {
+      "projectId": "c69e4bfd-18d1-472b-a9c8-9da7b4c42c3b",
+      "environmentId": "20fb546c-b568-4ee1-8024-8834b92120c8",
+      "testSuite": "manual-api-demonstration"
+    }
+  }
+}

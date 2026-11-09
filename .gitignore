@@ -1,0 +1,17 @@
+**/target/
+**/__pycache__/
+*.pyc
+.env
+.runtime/
+.DS_Store
+.idea/
+*.iml
+~$*
+report/~$*
+
+# Образец другой работы не относится к этому проекту
+report/*ПР3*
+
+# Неиспользуемые фрагменты и старый черновик
+report/*.py.inc
+report/*черновик.md

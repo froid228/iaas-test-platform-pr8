@@ -1,0 +1,169 @@
+name: pr8-test-platform
+
+x-app: &app
+  restart: unless-stopped
+  environment: &app-env
+    CONFIG_SERVER_URL: http://config-server:8888
+    EUREKA_URL: http://discovery-server:8761/eureka/
+    OAUTH_ISSUER: http://localhost:8180/realms/test-platform
+    RABBITMQ_HOST: rabbitmq
+    RABBITMQ_USER: platform
+    RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:?Set RabbitMQ password}
+    OAUTH_JWK_URI: http://keycloak:8080/realms/test-platform/protocol/openid-connect/certs
+  depends_on: &app-deps
+    config-server:
+      condition: service_healthy
+    discovery-server:
+      condition: service_healthy
+    keycloak:
+      condition: service_started
+    rabbitmq:
+      condition: service_healthy
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.13.7-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: platform
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:?Set RabbitMQ password}
+    ports: ["127.0.0.1:15672:15672"]
+    volumes: ["rabbitmq-data:/var/lib/rabbitmq"]
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+  config-server:
+    build:
+      context: .
+      args: {MODULE: config-server}
+    environment:
+      CONFIG_GIT_URI: file:/config-repo
+    volumes:
+      # JGit создаёт index.lock и обновляет индекс при выборе ветки.
+      - ./.runtime/config-repo:/config-repo
+    ports: ["127.0.0.1:8888:8888"]
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8888; printf \"GET /actuator/health HTTP/1.0\\r\\n\\r\\n\" >&3; cat <&3' | grep -q '\"status\":\"UP\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 24
+      start_period: 30s
+  discovery-server:
+    build:
+      context: .
+      args: {MODULE: discovery-server}
+    ports: ["127.0.0.1:8761:8761"]
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8761; printf \"GET /actuator/health HTTP/1.0\\r\\n\\r\\n\" >&3; cat <&3' | grep -q '\"status\":\"UP\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 24
+      start_period: 30s
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.2.5
+    command: ["start-dev", "--import-realm"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:?Copy .env.example to .env}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:?Set admin password}
+      KC_HOSTNAME: http://localhost:8180
+      PLATFORM_CLIENT_SECRET: ${PLATFORM_CLIENT_SECRET:?Set client secret}
+    volumes:
+      - ./infra/keycloak/realm.json:/opt/keycloak/data/import/realm.json:ro
+      - keycloak-data:/opt/keycloak/data
+    ports: ["127.0.0.1:8180:8080"]
+  api-gateway:
+    <<: *app
+    build:
+      context: .
+      args: {MODULE: api-gateway}
+    ports: ["127.0.0.1:${GATEWAY_PORT:-8080}:8080"]
+
+  project-service:
+    <<: *app
+    build:
+      context: .
+      args: {MODULE: project-service}
+    environment:
+      <<: *app-env
+      DB_URL: jdbc:postgresql://project-db:5432/projects
+      DB_USER: platform
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB password}
+    depends_on:
+      <<: *app-deps
+      project-db:
+        condition: service_healthy
+  project-db:
+    image: postgres:16.8-alpine
+    environment:
+      POSTGRES_DB: projects
+      POSTGRES_USER: platform
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB password}
+    volumes: ["project-db-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U platform -d projects"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  environment-service:
+    <<: *app
+    build:
+      context: .
+      args: {MODULE: environment-service}
+    environment:
+      <<: *app-env
+      DB_URL: jdbc:postgresql://environment-db:5432/environments
+      DB_USER: platform
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB password}
+    depends_on:
+      <<: *app-deps
+      environment-db:
+        condition: service_healthy
+  environment-db:
+    image: postgres:16.8-alpine
+    environment:
+      POSTGRES_DB: environments
+      POSTGRES_USER: platform
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB password}
+    volumes: ["environment-db-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U platform -d environments"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  test-run-service:
+    <<: *app
+    build:
+      context: .
+      args: {MODULE: test-run-service}
+    environment:
+      <<: *app-env
+      DB_URL: jdbc:postgresql://test-run-db:5432/test_runs
+      DB_USER: platform
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB password}
+    depends_on:
+      <<: *app-deps
+      test-run-db:
+        condition: service_healthy
+  test-run-db:
+    image: postgres:16.8-alpine
+    environment:
+      POSTGRES_DB: test_runs
+      POSTGRES_USER: platform
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB password}
+    volumes: ["test-run-db-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U platform -d test_runs"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  rabbitmq-data:
+  keycloak-data:
+  project-db-data:
+  environment-db-data:
+  test-run-db-data:

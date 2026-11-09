@@ -1,0 +1,12 @@
+{
+  "name": "project-service",
+  "profiles": [
+    "default"
+  ],
+  "label": "main",
+  "version": "964a27e67e92feddedcb1a7301e9b5c10cf61985",
+  "propertySources": [
+    "file:/config-repo/project-service.yaml",
+    "file:/config-repo/application.yaml"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "environment.run-created",
+  "vhost": "/",
+  "durable": true,
+  "consumers": 1,
+  "messages_ready": 0,
+  "messages_unacknowledged": 0,
+  "message_stats": null
+}
